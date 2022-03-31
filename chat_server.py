@@ -1,30 +1,29 @@
-import sys
 import socket
+from threading import *
 
-RECV_BUFFER_SIZE = 2048
-QUEUE_LENGTH = 10
+serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+host = "155.41.101.57"
+port = 8000
+print(host)
+print(port)
+serversocket.bind((host, port))
 
-def server(server_port):
-    """TODO: Listen on socket and print received message to sys.stdout"""
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.bind(('127.0.0.1', server_port))
-    s.listen(QUEUE_LENGTH)
-    while True:
-        conn, addr = s.accept()
-        while True:
-            data = conn.recv(RECV_BUFFER_SIZE)
-            if not data:
-                break
-            sys.stdout.write(data)
-            sys.stdout.flush()
-        conn.close()
-    s.close()
-def main():
-    """Parse command-line argument and call server function """
-    if len(sys.argv) != 2:
-        sys.exit("Usage: python server-python.py [Server Port]")
-    server_port = int(sys.argv[1])
-    server(server_port)
 
-if __name__ == "__main__":
-    main()
+class client(Thread):
+    def __init__(self, socket, address):
+        Thread.__init__(self)
+        self.sock = socket
+        self.addr = address
+        self.start()
+
+    def run(self):
+        while 1:
+            print('Client sent:', self.sock.recv(1024).decode())
+            self.sock.send(b'Oi you sent something to me')
+
+
+serversocket.listen(5)
+print('server started and listening')
+while 1:
+    clientsocket, address = serversocket.accept()
+    client(clientsocket, address)
