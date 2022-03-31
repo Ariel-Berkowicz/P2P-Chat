@@ -1,27 +1,21 @@
-#! /usr/bin/python3
+import socket, pickle
 
-import socket
-import sys
-
+HOST = 'localhost'
+PORT = 50007
+# Create a socket connection.
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-host = "155.41.101.57"
-port =8000
-s.connect((host,port))
+s.connect((HOST, PORT))
 
 
-def ts(str):
-    # send the string to the server and print the response
-    s.send(str.encode())
-    data = s.recv(1024)
-    print('Received from server:', data.decode())
-    
+while True:
+    # received data from user input 
+    data = input('Enter the data to be sent to the server: ')
 
-    data = ''
-    data = s.recv(1024).decode()
-    print('Received from server: ' + data)
+    # Pickle the object and send it to the server
+    data_string = pickle.dumps(data)
+    s.send(data_string)
+    print ('Data Sent to Server')
 
-while 2:
-    r = input('Testing\n')
-    ts(s)
-
-s.close ()
+    if data == 'exit':
+        s.close()
+        break
