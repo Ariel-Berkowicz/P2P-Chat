@@ -1,33 +1,27 @@
-###############################################################################
-# client-python.py
-# Name:Amir Riad
-# BU ID: U27917465
-# Email: ariad@bu.edu
-###############################################################################
+#! /usr/bin/python3
 
-import sys
 import socket
+import sys
 
-SEND_BUFFER_SIZE = 2048
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+host = "155.41.101.57"
+port =8000
+s.connect((host,port))
 
-def client(server_ip, server_port):
-    """TODO: Open socket and send message from sys.stdin"""
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.connect((server_ip, server_port))
-    while True:
-        msg=sys.stdin.read(SEND_BUFFER_SIZE)
-        if len(msg)==0:
-            break
-        s.sendall(msg)
-    s.close()
 
-def main():
-    """Parse command-line arguments and call client function """
-    if len(sys.argv) != 3:
-        sys.exit("Usage: python client-python.py [Server IP] [Server Port] < [message]")
-    server_ip = sys.argv[1]
-    server_port = int(sys.argv[2])
-    client(server_ip, server_port)
+def ts(str):
+    # send the string to the server and print the response
+    s.send(str.encode())
+    data = s.recv(1024)
+    print('Received from server:', data.decode())
+    
 
-if __name__ == "__main__":
-    main()
+    data = ''
+    data = s.recv(1024).decode()
+    print('Received from server: ' + data)
+
+while 2:
+    r = input('Testing\n')
+    ts(s)
+
+s.close ()
