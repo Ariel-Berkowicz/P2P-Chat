@@ -1,9 +1,11 @@
 import socket
 from threading import *
+import sys
 
 serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-host = "155.41.101.57"
-port = 8000
+host = str(sys.argv[1])
+port = int(sys.argv[2])
+
 print(host)
 print(port)
 serversocket.bind((host, port))
@@ -27,4 +29,3 @@ print('server started and listening')
 while 1:
     clientsocket, address = serversocket.accept()
     client(clientsocket, address)
-    
