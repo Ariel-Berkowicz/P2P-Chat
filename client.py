@@ -29,7 +29,7 @@ class Client:
                 break
             # Check for peers list
             if data[0:1] == b'\x11':
-                print('New peer added to the network')
+                print('Peers updated')
                 self.update_peers(data[1:])
             else:
                 print(str(data, 'utf-8'))

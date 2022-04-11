@@ -31,7 +31,9 @@ class Server:
 
             # Sending to the rest of the connections
             for c in self.connections:
-                c.send(data)
+                if c == conn:
+                    continue
+                c.send(bytes(add[0] + ": " + str(data, 'utf-8'), 'utf-8'))
 
     def run(self):
         # Connections accepting thread
