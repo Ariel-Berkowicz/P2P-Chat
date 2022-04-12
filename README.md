@@ -14,7 +14,7 @@ python3 chat.py
 ![2](https://user-images.githubusercontent.com/61075964/162984080-a724b94f-eef4-40e8-b2a9-fb3b32f9074c.png)
 
 4. You can send messages using command line as:
-![3](https://user-images.githubusercontent.com/61075964/162984218-ed5c2b4d-1468-42ae-982c-815ffd23fdee.png)
+![4](https://user-images.githubusercontent.com/61075964/162985739-be834606-acf4-4c32-aaef-817238e812ee.png)
 
 5. Now if you kill the server peer then it will make one of the other peers a server (using random wait time):
 ![6](https://user-images.githubusercontent.com/61075964/162984633-22887f91-1eb2-42ea-8311-cbf5a9b2d356.png)
